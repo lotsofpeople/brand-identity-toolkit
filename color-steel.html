@@ -1,0 +1,115 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`color-steel`
+-->
+
+<dom-module id="color-steel">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        box-sizing: border-box;
+      }
+
+      section {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+      }
+
+      main {
+        flex: 1;
+        background-color: var(--steel-color);
+        border-radius: 5px;
+        min-height: 100px;
+      }
+
+      h5, h6 {
+        margin: 5px 0 0 0;
+        color: #999;
+      }
+
+      h5 {
+      }
+
+      h6 {
+        font-weight: 400;
+      }
+    </style>
+
+    <section>
+      <main></main>
+      <header>
+        <h5>[[name]]</h5>
+        <h6>[[cmykColor]]</h6>
+        <h6>[[rgbColor]]</h6>
+        <h6>[[hexColor]]</h6>
+      </header>
+    </section>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'color-steel',
+      properties: {
+        name: {
+          type: String
+        },
+        rgbColor: {
+          type: String,
+          readOnly: true
+        },
+        hexColor: {
+          type: String,
+          computed: '_computeHexColor(rgbColor)'
+        },
+        cmykColor: {
+          type: String,
+          computed: '_computeCmykColor(rgbColor)'
+        }
+      },
+
+      attached: function() {
+        var rgbColor = window.getComputedStyle(this.$$('main')).backgroundColor;
+        this._setRgbColor(rgbColor);
+      },
+
+      _computeHexColor: function(rgbColor) {
+        rgbColor = rgbColor.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+        return (rgbColor && rgbColor.length === 4) ? "#" +
+        ("0" + parseInt(rgbColor[1],10).toString(16)).slice(-2) +
+        ("0" + parseInt(rgbColor[2],10).toString(16)).slice(-2) +
+        ("0" + parseInt(rgbColor[3],10).toString(16)).slice(-2) : '';
+      },
+
+      _computeCmykColor: function (rgbColor){
+
+        var result = {};
+        var rgbColor = rgbColor.replace(/^rgb\((.*?)\)$/, '$1').split(', ');
+     
+        var r = parseInt(rgbColor[0]) / 255;
+        var g = parseInt(rgbColor[1]) / 255;
+        var b = parseInt(rgbColor[2]) / 255;
+     
+        result.k = Math.min( 1 - r, 1 - g, 1 - b );
+        result.c = ( 1 - r - result.k ) / ( 1 - result.k );
+        result.m = ( 1 - g - result.k ) / ( 1 - result.k );
+        result.y = ( 1 - b - result.k ) / ( 1 - result.k );
+     
+        result.c = Math.round( result.c * 100 );
+        result.m = Math.round( result.m * 100 );
+        result.y = Math.round( result.y * 100 );
+        result.k = Math.round( result.k * 100 );
+
+        return '' +
+        'C' + result.c + ' ' +
+        'M' + result.m + ' ' +
+        'Y' + result.y + ' ' +
+        'K' + result.k + ' ';
+     
+      },
+
+    })
+  </script>
+</dom-module>

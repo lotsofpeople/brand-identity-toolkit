@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>brand-identity-toolkit demo</title>
+
+    <script>
+      window.Polymer = {
+        useNativeCSSProperties: true,
+        lazyRegister: true,
+        dom: 'shadow'
+      };
+    </script>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+    <link rel="import" href="../brand-identity-toolkit.html">
+
+    <style is="custom-style">
+      html, body {
+        margin: 0;
+        background-color: #f2f2f2;
+      }
+
+      html {
+        --base-font-style: {
+          font-family: 'Rubik', sans-serif;
+        }
+      }
+
+      typography-style-preview[name="heading 1"] {
+        --font-style: {
+          @apply --base-font-style;
+          font-size: 72px;
+        }
+      }
+
+      typography-style-preview[name="heading 2"] {
+        --font-style: {
+          @apply --base-font-style;
+          font-size: 48px;
+        }
+      }
+
+      typography-style-preview[name="heading 3"] {
+        --font-style: {
+          @apply --base-font-style;
+          font-size: 36px;
+        }
+      }
+
+      typography-style-preview[name="heading 4"] {
+        --font-style: {
+          @apply --base-font-style;
+          font-size: 24px;
+        }
+      }
+
+      typography-style-preview[name="heading 5"] {
+        --font-style: {
+          @apply --base-font-style;
+          font-size: 18px;
+        }
+      }
+
+      typography-style-preview[name="heading 6"] {
+        --font-style: {
+          @apply --base-font-style;
+          font-size: 12px;
+        }
+      }
+
+      color-steel[name="green"] {
+        --steel-color: #256E5E;
+      }
+
+      color-steel[name="blue"] {
+        --steel-color: #2D4671;
+      }
+
+      color-steel[name="lightbrown"] {
+        --steel-color: #AA8239;
+      }
+
+      color-steel[name="brown"] {
+        --steel-color: #AA6439;
+      }
+    </style>
+  </head>
+  <body>
+
+    <brand-identity-toolkit>
+      <!-- color steels -->
+      <color-steel slot="colors" name="green"></color-steel>
+      <color-steel slot="colors" name="blue"></color-steel>
+      <color-steel slot="colors" name="lightbrown"></color-steel>
+      <color-steel slot="colors" name="brown"></color-steel>
+      <!-- typography styles -->
+      <typography-style-preview slot="typography" name="heading 1"></typography-style-preview>
+      <typography-style-preview slot="typography" name="heading 2"></typography-style-preview>
+      <typography-style-preview slot="typography" name="heading 3"></typography-style-preview>
+      <typography-style-preview slot="typography" name="heading 4"></typography-style-preview>
+      <typography-style-preview slot="typography" name="heading 5"></typography-style-preview>
+      <typography-style-preview slot="typography" name="heading 6"></typography-style-preview>
+    </brand-identity-toolkit>
+
+  </body>
+</html>

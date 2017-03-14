@@ -1,0 +1,106 @@
+<link rel="import" href="../polymer/polymer.html">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="import" href="color-steel.html">
+<link rel="import" href="typography-style-preview.html">
+
+<!--
+`brand-identity-kit`
+@demo demo/index.html
+-->
+
+<dom-module id="brand-identity-toolkit">
+  <template>
+    <style>
+      :host {
+        display: block;
+        font-family: 'Roboto';
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      #container {
+        width: 50vw;
+        min-width: 600px;
+        max-width: 1024px;
+        flex: 1;
+      }
+
+      section {
+        margin: 20px 0;
+      }
+
+      section main {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      ::slotted(color-steel) {
+        min-width: 33.33333%;
+        min-height: 150px;
+        padding: 10px;
+      }
+
+      h1 {
+        margin: 50px 10px;
+        font-size: 48px;
+        font-weight: 600;
+      }
+
+      h2 {
+        margin: 20px 10px;
+        font-size: 36px;
+        font-weight: 400;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+      }
+
+      #typography main {
+        flex-direction: column;
+      }
+
+      ::slotted(typography-style-preview) {
+        padding: 10px;
+      }
+    </style>
+
+    <div id="container">
+
+      <h1>[[name]]</h1>
+      
+      <section id="colors">
+        <header>
+          <h2>Colors</h2>
+        </header>
+        <main>
+          <slot name="colors"></slot>
+        </main>
+      </section>
+
+      <section id="typography">
+        <header>
+          <h2>Typography</h2>
+        </header>
+        <main>
+          <slot name="typography"></slot>
+        </main>
+      </section>
+
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'brand-identity-toolkit',
+      properties: {
+        name: {
+          type: String,
+          value: 'Brand Identity Toolkit'
+        }
+      },
+
+    })
+  </script>
+</dom-module>

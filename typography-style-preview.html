@@ -1,0 +1,99 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`typography-style-preview`
+-->
+
+<dom-module id="typography-style-preview">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        box-sizing: border-box;
+      }
+
+      main {
+        @apply --font-style;
+      }
+
+      h5, h6 {
+        margin: 5px 0 0 0;
+        color: #999;
+      }
+
+      h6 {
+        font-weight: 400;
+      }
+    </style>
+
+    <section>
+      <main>[[previewText]]</main>
+      <header>
+        <h5>[[name]]</h5>
+        <h6>font-family: '[[fontFamily]]'</h6>
+        <h6>font-size: [[fontSize]]</h6>
+        <h6>font-weight: [[fontWeight]]</h6>
+        <h6>font-style: [[fontStyle]]</h6>
+        <h6>line-height: [[lineHeight]]</h6>
+      </header>
+    </section>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'typography-style-preview',
+      properties: {
+        name: {
+          type: String
+        },
+
+        previewText: {
+          type: String,
+          value: 'The quick brown fox jumps over the lazy dog'
+        },
+
+        fontFamily: {
+          type: String,
+          readOnly: true
+        },
+
+        fontSize: {
+          type: String,
+          readOnly: true
+        },
+
+        fontWeight: {
+          type: String,
+          readOnly: true
+        },
+
+        fontStyle: {
+          type: String,
+          readOnly: true
+        },
+
+        lineHeight: {
+          type: String,
+          readOnly: true
+        },
+
+      },
+
+      attached: function() {
+        this._setStyles();
+        window.addEventListener('resize', this._setStyles.bind(this));
+      },
+
+      _setStyles: function() {
+        this.updateStyles();
+        var styles = window.getComputedStyle(this.$$('main'));
+        this._setFontFamily(styles.fontFamily);
+        this._setFontSize(styles.fontSize);
+        this._setFontWeight(styles.fontWeight);
+        this._setFontStyle(styles.fontStyle);
+        this._setLineHeight(styles.lineHeight);
+      }
+
+    })
+  </script>
+</dom-module>
